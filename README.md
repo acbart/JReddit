@@ -14,17 +14,20 @@ Cache
 =====
 Using the cache is simple.
 
+```java
 public class JRedditTest {
-  public static void main(String[] args) {
-    Reddit reddit = Reddit.getInstance();
-    reddit.setLocal(true);
-    reddit.getPosts("virginiatech", SortMode.TOP, new PostListener() {
-    @Override
-      public void onSuccess(ArrayList<Post> posts) {  
-        System.out.println(posts);
-      }
-		});
-  }
+	public static void main(String[] args) {
+		Reddit reddit = Reddit.getInstance();
+		
+		reddit.setLocal(true); // USE THE CACHE!
+    
+		reddit.getPosts("virginiatech", SortMode.TOP, new PostListener() {
+			public void onSuccess(ArrayList<Post> posts) {  
+				System.out.println(posts);
+			}
+		}
+	}
 }
+```
 
 If the data isn't able to be found in the cache, then an empty list will be returned.
