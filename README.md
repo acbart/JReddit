@@ -52,6 +52,28 @@ public class JRedditTest {
 }
 ```
 
+Exceptions
+==========
+Using real-time web data can result in a number of exceptions. If you want to do something specifc when exceptions occur, you can override the onFailure callback.
+
+```java
+public class JRedditTest {
+	public static void main(String[] args) {
+		Reddit reddit = Reddit.getInstance();
+		reddit.getPosts("virginiatech", SortMode.TOP, new PostListener() {
+			public void onSuccess(ArrayList<Post> posts) {  
+				System.out.println(posts);
+			}
+			public void onFailure(Exception e) {
+				System.out.println("Oh no, something has gone wrong!");
+			}
+		}
+	}
+}
+```
+
+Note that you don't need to override onFailure; the default action is to simply print the error to the terminal. However, you must always override onSuccess.
+
 Cache
 =====
 Using the cache is simple.
