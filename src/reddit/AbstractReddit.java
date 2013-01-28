@@ -14,13 +14,22 @@ public abstract class AbstractReddit {
 	}
 	
 	public static void main(String[] args) {
-		StructuredReddit normal = StructuredReddit.getInstance();
+		Reddit normal = Reddit.getInstance();
 		normal.setLocal(true);
-		normal.getPosts("virginiatechd", SortMode.TOP, new StructuredPostListener() {
+		normal.getPosts("virginiatechd", SortMode.TOP, new PostListener() {
 
 			@Override
-			public void onSuccess(ArrayList<Object> posts) {
+			public void onSuccess(ArrayList<Post> posts) {
 				System.out.println(posts);
+				if (!posts.isEmpty()) {
+					posts.get(0).getComments(SortMode.NEW, new CommentListener() {
+
+						@Override
+						public void onSuccess(ArrayList<Comment> comments) {
+							System.out.println("There are "+comments.size());
+						}
+					});
+				}
 			}
 			
 		});
