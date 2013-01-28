@@ -52,6 +52,27 @@ public class JRedditTest {
 }
 ```
 
+You can get the comments from a post very directly.
+
+```java
+public class JRedditTest {
+	public static void main(String[] args) {
+		Reddit reddit = Reddit.getInstance();
+		reddit.getPosts("virginiatech", SortMode.TOP, new PostListener() {
+			public void onSuccess(ArrayList<Post> posts) {  
+				if (!posts.isEmpty()) {
+					posts.get(0).getComments(SortMode.NEW, new CommentListener() {
+						public void onSuccess(ArrayList<Comment> comments) {
+							System.out.println("There are "+comments.size()+" top-level comments");
+						}
+					});
+				}
+			}
+		}
+	}
+}
+```
+
 Exceptions
 ==========
 Using real-time web data can result in a number of exceptions. If you want to do something specifc when exceptions occur, you can override the onFailure callback.
